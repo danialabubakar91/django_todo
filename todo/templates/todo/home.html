@@ -1,5 +1,20 @@
 {% extends 'todo/base.html' %}
-
+{% load static %}
 {% block content %}
-home
+<main class="container-fluid">
+    <div class="row align-items-start">
+        <div class="col-lg-6 col-md-12 my-auto text-center">
+            <h1>Get your todos <br>done and dusted</h1>
+            <p>You yes you. Stop wasting time and start todoing your todos. Manage your<br> todos with us and complete everything that you have procrastinated on. <br>Lets get started!</p>
+            <form action="{% url 'currenttodos' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Start</button>
+            </form>
+        </div>
+        <div id="hero-img" class="col-lg-6 col-md-12 d-flex align-items-center flex-column">
+            <img src="{% static 'todo/43029.jpg' %}" alt="Hero Image">
+            <a class="text-secondary" href="http://www.freepik.com" target="_blank">Designed by rawpixel.com / Freepik</a>
+        </div>
+    </div>
+</main>
 {% endblock %}
