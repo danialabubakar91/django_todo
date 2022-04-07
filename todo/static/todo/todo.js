@@ -1,3 +1,9 @@
+window.onload = (event) => {
+    const currentTodoData = document.querySelector('#currentTodoData')
+    const jsonTodoData = JSON.parse(JSON.parse(currentTodoData.innerText))
+    displayTodos(jsonTodoData, false)
+};
+
 const todoCompletedLink = document.querySelector('#todoCompleted')
 const todoActiveLink = document.querySelector('#todoActive')
 
@@ -6,8 +12,16 @@ todoCompletedLink.addEventListener('click', async function (e) {
     const completedTodosUrl = document.getElementById("completedTodosUrl").href;
     const res = await axios.get(completedTodosUrl)
     console.log(res.data)
-    displayCompletedTodos(res.data)
+    const completedTodos = JSON.parse(res.data.completedtodos);
+    displayTodos(completedTodos, true)
+})
 
+todoActiveLink.addEventListener('click', async function (e) {
+    removeTodos();
+    console.log('Hello?')
+    const currentTodoData = document.querySelector('#currentTodoData')
+    const jsonTodoData = JSON.parse(JSON.parse(currentTodoData.innerText))
+    displayTodos(jsonTodoData, false)
 })
 
 const removeTodos = () => {
@@ -17,8 +31,8 @@ const removeTodos = () => {
     }
 }
 
-const displayCompletedTodos = (completedTodos) => {
-    for (let item of JSON.parse(completedTodos.completedtodos)) {
+const displayTodos = (todos, isCompleted) => {
+    for (let item of todos) {
         //<div class="input-group mb-2">
         const divInputGroup = document.createElement('div');
         divInputGroup.setAttribute('class', 'input-group mb-2');
@@ -27,9 +41,9 @@ const displayCompletedTodos = (completedTodos) => {
         textAreaFormControl.setAttribute('class', 'form-control');
         textAreaFormControl.readOnly = true;
         if(item.fields.memo === ""){
-            textAreaFormControl.value = `${item.fields.title}`
+            textAreaFormControl.value = `${item.fields.title} - ${item.pk}`
         }else{
-            textAreaFormControl.value = `${item.fields.title} - ${item.fields.memo}`
+            textAreaFormControl.value = `${item.fields.title} - ${item.fields.memo} - ${item.pk}`
         }
         //<button class="btn btn-success" type="button">Complete</button>
         const completeButton = document.createElement('button');
@@ -41,65 +55,14 @@ const displayCompletedTodos = (completedTodos) => {
         deleteButton.setAttribute('class', 'btn btn-danger');
         deleteButton.setAttribute('type', 'button');
         deleteButton.textContent = 'Delete';
+        //Active todos require both complete and delete button
         divInputGroup.appendChild(textAreaFormControl);
-        //divInputGroup.appendChild(completeButton);
-        divInputGroup.appendChild(deleteButton);
+        if(isCompleted){
+            divInputGroup.appendChild(deleteButton);
+        }else{
+            divInputGroup.appendChild(completeButton);
+            divInputGroup.appendChild(deleteButton);
+        }
         document.getElementById('todoItems').appendChild(divInputGroup)
     }
-
 }
-
-
-
-
-// todoCompletedLink.addEventListener('click', async function (e) {
-//     e.preventDefault();
-//     console.log(todoCompletedLink)
-//     removeCompletedTodos(document.querySelectorAll('#movies p'));
-//     const completedTodosUrl = document.getElementById("completedTodosUrl").href;
-//     const res = await axios.get(completedTodosUrl)
-//     displayCompletedTodos(res.data)
-// })
-
-// const removeCompletedTodos = (completedTodos) => {
-//     for (let item of completedTodos) {
-//         item.remove();
-//     }
-// }
-
-// const displayCompletedTodos = (completedTodos) => {
-//     for (let item of JSON.parse(completedTodos.completedtodos)) {
-//         const paragraph = document.createElement('p');
-//         paragraph.innerText = item.fields.title
-//         const divMovies = document.querySelector('#movies');
-//         divMovies.append(paragraph)
-//     }
-// }
-
-
-// const mydata = JSON.parse(document.getElementById('mydata').textContent);
-// const obj = JSON.parse(mydata)
-
-// const form = document.querySelector('#searchForm');
-// form.addEventListener('submit', async function (e) {
-//     e.preventDefault();
-//     removeCompletedTodos(document.querySelectorAll('#movies p'));
-//     const completedTodosUrl = document.getElementById("completedTodosUrl").href;
-//     const res = await axios.get(completedTodosUrl)
-//     displayCompletedTodos(res.data)
-// })
-
-// const removeCompletedTodos = (completedTodos) => {
-//     for (let item of completedTodos) {
-//         item.remove();
-//     }
-// }
-
-// const displayCompletedTodos = (completedTodos) => {
-//     for (let item of JSON.parse(completedTodos.completedtodos)) {
-//         const paragraph = document.createElement('p');
-//         paragraph.innerText = item.fields.title
-//         const divMovies = document.querySelector('#movies');
-//         divMovies.append(paragraph)
-//     }
-// }

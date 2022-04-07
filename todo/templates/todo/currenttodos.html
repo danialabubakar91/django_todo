@@ -24,16 +24,14 @@
     </div>
     <div class="row justify-content-center mb-4">
         <div class="col-8" id="todoItems">
-            <div class="input-group mb-2">
-                <textarea class="form-control" readonly>ddfasdfasdfasdf</textarea>
-                <button class="btn btn-success" type="button">Complete</button>
-                <button class="btn btn-danger" type="button">Delete</button>
-            </div>
-            <div class="input-group mb-2">
-                <textarea class="form-control" readonly>ddfasdfasdfasdf</textarea>
-                <button class="btn btn-success" type="button">Complete</button>
-                <button class="btn btn-danger" type="button">Delete</button>
-            </div>
+            <form method="POST" action="/todo/20/complete">
+                <div class="input-group mb-2">
+                    {% csrf_token %}
+                    <textarea class="form-control" readonly>ddfasdfasdfasdf</textarea>
+                    <button class="btn btn-success" type="submit">Complete</button>
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </div>
+            </form>
         </div>
     </div>
 </main>
@@ -52,8 +50,12 @@
         </li>
     {% endfor %}
 </ul> -->
+<form method="POST" action="/todo/19/complete">
+    {% csrf_token %}
+    <button type="submit">Complete</button>
+</form>
 
-<p id="mydata" style="display:none">{{ currenttodos|json_script:"currenttodos" }}</p>
+<p id="currentTodoData" style="display:none">{{ currenttodos|json_script:"currenttodos" }}</p>
 <a id="completedTodosUrl" href="{% url 'completedtodos' %}" style="display:none"></a>
 
 
