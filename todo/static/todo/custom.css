@@ -34,3 +34,21 @@ button.btn.btn-link {
 #hero-img a{
     text-decoration:none;
 }
+#todoNav .nav-link{
+    color:rgba(0,0,0,.55);
+}
+
+
+#todoNav .nav-link.active, #todoNav .nav-link:hover{
+    border-bottom: 0.25rem solid orangered;
+}
+
+#todoItem {
+    color:rgba(0,0,0,.55);
+    border-radius: 0.25rem;
+    background-color: #f4f6f7;
+}
+
+#todoItem .form-check-label {
+    padding:50
+}
