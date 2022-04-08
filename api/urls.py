@@ -9,7 +9,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="Todo API",
         default_version='',
-        description="Hi! Welcome to my Todo API. To get started, please make sure to use the signup or login api to get your token for authorization. For more details, please go to www.thissite.com.",
+        description="Hi! Welcome to my Todo API. To get started, please make sure to use the signup or login api to get your token from the response. Copy the token and click on the Authorize button located below.",
         terms_of_service="https://www.google.com/policies/terms/",
         #contact=openapi.Contact(email="contact@snippets.local"),
         license=openapi.License(name="BSD License"),

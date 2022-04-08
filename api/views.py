@@ -16,6 +16,15 @@ from rest_framework.parsers import JSONParser
 @api_view(['POST'])
 @csrf_exempt
 def signup(request):
+    '''
+    post:
+    signup api to get your token for authorization.
+
+    If you already have an account, use the login api to get your token. 
+    
+    If you do not have an account use this api. The signup api provides the token needed for authorization for all other todo apis. Copy the token after using the signup api and paste the token in the Authorize button at the top right of the page.
+
+    '''
     if request.method == 'POST':
         try:
             data = JSONParser().parse(request)
@@ -32,6 +41,13 @@ def signup(request):
 @api_view(['POST'])
 @csrf_exempt
 def login(request):
+    '''
+    post:
+    login api to get your token for authorization.
+
+    If you have not signed up, use the signup api below. The login api provides the token needed for authorization for all other todo apis. Copy the token after using the login api and paste the token in the Authorize button at the top right of the page.
+
+    '''
     if request.method == 'POST':
         data = JSONParser().parse(request)
         user = authenticate(
@@ -48,9 +64,12 @@ def login(request):
 
 
 class TodoCompletedList(generics.ListAPIView):
-    """
-    List users completed todos. This API requires authorization.
-    """
+    '''
+    get:
+    api to get list of completed todos.
+
+    this api requires authorization. use the login api or signup api if you do not have an account yet to get your authorization token.
+    '''
     serializer_class = TodoSerializer
     permission_class = [permissions.IsAuthenticated]
 
@@ -61,6 +80,17 @@ class TodoCompletedList(generics.ListAPIView):
 
 
 class TodoListCreate(generics.ListCreateAPIView):
+    '''
+    post:
+    api to create new todos.
+
+    this api requires authorization. use the login api or signup api if you do not have an account yet to get your authorization token.
+
+    get:
+    api to list all todos.
+
+    this api requires authorization. use the login api or signup api if you do not have an account yet to get your authorization token.
+    '''
     serializer_class = TodoSerializer
     permission_class = [permissions.IsAuthenticated]
 
@@ -76,6 +106,27 @@ class TodoListCreate(generics.ListCreateAPIView):
 
 
 class TodoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    '''
+    get:
+    api to get a specific todo.
+
+    this api requires authorization. use the login api or signup api if you do not have an account yet to get your authorization token.
+
+    put:
+    api to update a specific todo.
+
+    this api requires authorization. use the login api or signup api if you do not have an account yet to get your authorization token.
+
+    patch:
+    api to update a specific todo.
+
+    this api requires authorization. use the login api or signup api if you do not have an account yet to get your authorization token.
+
+    delete:
+    api to delete a specific todo.
+
+    this api requires authorization. use the login api or signup api if you do not have an account yet to get your authorization token.
+    '''
     serializer_class = TodoSerializer
     permission_class = [permissions.IsAuthenticated]
 
@@ -85,6 +136,22 @@ class TodoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 
 
 class TodoComplete(generics.UpdateAPIView):
+    '''
+    get:
+    api to get list of completed todos.
+
+    this api requires authorization. use the login api or signup api if you do not have an account yet to get your authorization token.
+
+    put:
+    api to update a specific completed todo.
+
+    this api requires authorization. use the login api or signup api if you do not have an account yet to get your authorization token.
+
+    patch:
+    api to update a specific completed todo.
+
+    this api requires authorization. use the login api or signup api if you do not have an account yet to get your authorization token.
+    '''
     serializer_class = TodoCompleteSerializer
     permission_class = [permissions.IsAuthenticated]
 
