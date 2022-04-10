@@ -4,7 +4,7 @@
 <div class="row justify-content-center mb-4">
     <div class="col-8" id="todoItems">
         {% for todo in todos %}
-        <form method="POST" action="/todo/{{todo.pk}}/deletecompleted">
+        <form method="POST" action="{% url 'deletecompletedtodo' todo_pk=todo.pk %}">
             {% csrf_token %}
             <span class="badge bg-secondary mb-2">{{todo.datecompleted|date:'M j Y H:i'}}</span>
             <div class="input-group mb-2">
